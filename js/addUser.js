@@ -1,6 +1,7 @@
 // Untuk penghubung antara UI HTML dan Model User
 
 document.addEventListener('DOMContentLoaded', () => {
+  
   const userForm = document.getElementById('userForm');
   const userManager = new User();
 

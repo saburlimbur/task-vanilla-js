@@ -17,9 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (result.succes) {
       localStorage.setItem('usernameLoggedIn', usernameByInput);
+
       return (window.location.href = '../tasks.html');
-    } else {
-      alert('Username Tidak Ditemukan!');
+
+    } 
+    else {
+      alert('Upss! Username Tidak Ditemukan!');
       console.log(result.message);
     }
   });

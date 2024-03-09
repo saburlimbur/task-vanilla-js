@@ -2,10 +2,11 @@ class Task {
   constructor() {
     this.tasks = this.getTasks();
   }
+
   getTasks() {
     return JSON.parse(localStorage.getItem('tasks')) || [];
   }
-  
+
   saveTask(taskData) {
     const newTaskData = {
       id: Date.now(),

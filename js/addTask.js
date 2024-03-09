@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       //return (window.location.href = '../signin.html');
       alert('Berhasil Tersimpan');
     } else {
-      console.log('PROSES SIMPAN DATA GAGAL');
+      console.log('Proses simpan Data gagal ');
     }
   });
 });

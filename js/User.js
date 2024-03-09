@@ -1,6 +1,7 @@
 // UNTUK BUSSINES LOGIC DAN MENGELOLA DATA SEPERTI CREATE, READ, UPDATE, etc..
 
 class User {
+
   constructor() {
     this.users = this.getUsers() || [];
   }
@@ -22,12 +23,13 @@ class User {
   }
 
   signInUser(usernameByInput) {
+
     // Proses pemeriksaan data username pada localstorage
     const userExists = this.users.some((user) => user.username.toLowerCase() === usernameByInput.toLowerCase());
 
     if (userExists) {
-      // Proses pengembalian data ke signIn.js controller
 
+      // Proses pengembalian data ke signIn.js controller
       return {
         succes: true,
         username,
@@ -35,7 +37,7 @@ class User {
     } else {
       return {
         succes: false,
-        message: 'DATA TIDAK DITEMUKAN',
+        message: 'Upss! Data tidak ditemukan',
       };
     }
   }
