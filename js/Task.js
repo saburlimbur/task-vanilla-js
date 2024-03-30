@@ -7,6 +7,7 @@ class Task {
     return JSON.parse(localStorage.getItem('tasks')) || [];
   }
 
+  // Menggunakan split operator (...)
   saveTask(taskData) {
     const newTaskData = {
       id: Date.now(),

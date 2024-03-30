@@ -18,17 +18,17 @@ class User {
     // return window.location.href = '../signin.html';
 
     return {
-      succes: true,
+      succes: true
+      
     };
   }
 
   signInUser(usernameByInput) {
-
+    
     // Proses pemeriksaan data username pada localstorage
     const userExists = this.users.some((user) => user.username.toLowerCase() === usernameByInput.toLowerCase());
 
     if (userExists) {
-
       // Proses pengembalian data ke signIn.js controller
       return {
         succes: true,
