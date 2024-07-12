@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+  function capitalizeFirstChar(str) {
+    if (!str) return str; // fungsi untuk membuat huruf capital diawal pada task
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  // fungsi untuk membuat date dgn format string
+  function formatDate(userFriendlyDate) {
+    const date = new Date(userFriendlyDate);
+
+    const options = {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    };
+
+    return date.toLocaleDateString('en-GB', options);
+  }
+
   // untuk membuat instance dari object task
   const myTasks = new Task();
 
@@ -8,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskWrapper = document.getElementById('taskWrapper');
   const taskWrapperEmpty = document.getElementById('taskWrapperEmpty');
 
-  function displayAllTask() {
+  function displayAllTask(tasks = existingTasks) {
     if (existingTasks.length === 0) {
       taskWrapper.className = 'hidden';
       console.log('Upss! Tidak ada Task yang tersedia');
@@ -17,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Beberapa Task sudah tersedia dan siap ditampilkan!');
 
       existingTasks.forEach((task) => {
+        const userFriendlyDate = formatDate(task.createdAt); // fungsi perulangan date format string
+
         const itemTask = document.createElement('div');
         itemTask.className = 'flex justify-between bg-white p-5 w-full rounded-3xl';
         itemTask.innerHTML = `
@@ -27,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="img/icons/ghost.svg" alt="icon">
             </div>
             <div class="flex flex-col">
-                <p class="font-bold text-lg leading-[27px]">${task.taskName}</p>
-                <p class="text-sm leading-[21px] text-taskia-grey">Created ${task.createdAt}</p>
+                <p class="font-bold text-lg leading-[27px]">${capitalizeFirstChar(task.taskName)}</p>
+                <p class="text-sm leading-[21px] text-taskia-grey">Created at ${userFriendlyDate}</p>
             </div>
         </div>
         <div class="flex gap-4 font-semibold text-sm leading-[21px]">
@@ -54,8 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       </div>
                 <p>In Progress</p>
                 </div>`
-                : 
-                `<div class="flex gap-1 items-center text-taskia-green">
+                : `<div class="flex gap-1 items-center text-taskia-green">
                       <div class="flex shrink-0 w-5 h-5">
                       <svg width="20" height="21" viewBox="0 0 20 21" fill="none"
                           xmlns="http://www.w3.org/2000/svg">
@@ -76,11 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="flex flex-row items-center gap-x-3">
         <a href="#"
             class="my-auto font-semibold text-taskia-red border border-taskia-red p-[12px_20px] h-12 rounded-full">Delete</a>
-        <a href="#"
+
+        <a href="#" id="completeTask-${task.id}"
             class="flex gap-[10px] justify-center items-center text-white p-[12px_20px] h-12 font-semibold bg-gradient-to-b from-[#977FFF] to-[#6F4FFF] rounded-full w-full border border-taskia-background-grey">Complete</a>
     </div>
         `;
         taskWrapper.appendChild(itemTask);
+
+        // fungsi ini digunaakn saat klik button complete, maka akan tampil ID unik
+        itemTask.querySelector(`#completeTask-${task.id}`).addEventListener('click', function (event) {
+          event.preventDefault();
+          myTasks.completeTask(task.id);
+          const updateTasks = myTasks.getTasks();
+          displayAllTask(updateTasks);
+
+          /* console.log(task.id); */
+        });
       });
     }
   }

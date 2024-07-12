@@ -1,7 +1,7 @@
 // Untuk penghubung antara UI HTML dan Model User
 
 document.addEventListener('DOMContentLoaded', () => {
-  //membuat tanggal, bulan, tahun. yyy-mm-dd
+  //membuat tanggal, bulan, tahun. yyy-mm-dd. pada localstrorage
 
   const now = new Date();
   const year = now.getFullYear();
@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (result.succes) {
       //return (window.location.href = '../signin.html');
       alert('Berhasil Tersimpan');
+      return (window.location.href = '../tasks.html');
+      
     } else {
       console.log('Proses simpan Data gagal ');
     }
